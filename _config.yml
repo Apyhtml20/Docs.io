@@ -1,0 +1,9 @@
+title: Aptico Documentation
+description: Agentic AI Engineering with Aptico CLI
+theme: minima
+
+markdown: kramdown
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
