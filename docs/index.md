@@ -14,7 +14,7 @@ tags:
 title: Harness Engineering for AI Agents
 ---
 
-# Harness Engineering for AI Agents
+# Harness Engineering ?
 
 > How do we move from building an AI model application to building a
 > reliable AI system?
