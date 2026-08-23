@@ -18,21 +18,6 @@ body {
   line-height: 1.7;
 }
 
-.site-header {
-  border-top: 4px solid var(--accent);
-  border-bottom: 1px solid var(--border);
-}
-
-.site-title,
-.site-title:visited {
-  font-weight: 700;
-  color: var(--text-body) !important;
-}
-
-.site-nav .page-link {
-  color: var(--text-body);
-}
-
 .wrapper {
   max-width: 800px;
 }
