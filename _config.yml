@@ -1,5 +1,7 @@
 title: Aptico Documentation
 description: Agentic AI Engineering with Aptico CLI
+url: "https://apyhtml20.github.io"
+baseurl: "/Docs.io"
 theme: minima
 
 markdown: kramdown
