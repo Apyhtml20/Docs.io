@@ -133,7 +133,7 @@ The first four layers form the structural core of the harness, while
 Observability, Verification, and Governance act as a control layer
 around it.
 
-![The ETCLOVG taxonomy: seven layers of agent harness engineering — Execution Environment & Sandbox, Tool Interface & Protocol, Context & Memory Management, Lifecycle & Orchestration, Observability & Operations, Verification & Evaluation, and Governance & Security](../../assets/images/etclovg-overview.svg){: .doc-diagram }
+![The ETCLOVG taxonomy: seven layers of agent harness engineering — Execution Environment & Sandbox, Tool Interface & Protocol, Context & Memory Management, Lifecycle & Orchestration, Observability & Operations, Verification & Evaluation, and Governance & Security](assets/images/etclovg-overview.png){: .doc-diagram }
 
 I find this classification useful because it gives a practical way to
 ask:
@@ -683,7 +683,7 @@ ETCLOVG
    └── G → Governance and security
 ```
 
-![The Aptico CLI harness architecture: Observability & Operations monitors the four core layers (Execution & Sandbox, Tool Interface & Protocol, Context & Memory Management, Lifecycle & Orchestration), which feed into Verification & Evaluation and finally Governance & Security](../../assets/images/aptico-harness-architecture.svg){: .doc-diagram }
+![The Aptico CLI harness architecture: Observability & Operations monitors the four core layers (Execution & Sandbox, Tool Interface & Protocol, Context & Memory Management, Lifecycle & Orchestration), which feed into Verification & Evaluation and finally Governance & Security](assets/images/aptico-harness-architecture.png){: .doc-diagram }
 
 I do not see ETCLOVG as something that must be implemented literally.
 
@@ -858,7 +858,7 @@ of modern AI engineering.
 
 ## References
 
--   Li, J. et al. *Agent Harness Engineering: A Survey*, 2026.
+-   Li, J. et al. *Agent Harness Engineering: A Survey*, 2026.
 -   OpenAI. *Harness engineering: leveraging Codex in an agent-first
     world*, 2026.
 -   LangChain. *The Anatomy of an Agent Harness*, 2026.
