@@ -460,14 +460,20 @@ For multi-agent systems, this becomes even more interesting.
 For example:
 
 ``` text
-                 Orchestrator
-                 /     |      \
-                /      |       \
-          Context     Tool    Validator
-            Agent     Agent      Agent
-                \      |       /
-                 \     |      /
-                  Final Result
+                          ┌──────────────┐
+                          │ Orchestrator │
+                          └──────┬───────┘
+              ┌───────────────────┼───────────────────┐
+              ▼                   ▼                   ▼
+      ┌───────────────┐    ┌────────────┐    ┌──────────────────┐
+      │ Context Agent │    │ Tool Agent │    │ Validator Agent  │
+      └───────┬───────┘    └─────┬──────┘    └────────┬─────────┘
+              │                  │                     │
+              └──────────────────┼─────────────────────┘
+                                 ▼
+                          ┌──────────────┐
+                          │ Final Result │
+                          └──────────────┘
 ```
 
 The Lifecycle layer is responsible for deciding how these steps are
@@ -505,39 +511,60 @@ why.
 For example:
 
 ``` text
-User
- ↓
-Agent
- ↓
-Tool A ✓
- ↓
-Tool B ✓
- ↓
-Tool C ✗
- ↓
-Retry
- ↓
-Wrong result
+┌──────┐
+│ User │
+└──────┘
+    │
+    ▼
+┌───────┐
+│ Agent │
+└───────┘
+    │
+    ▼
+┌───────────┐
+│ Tool A  ✓ │
+└───────────┘
+      │
+      ▼
+┌───────────┐
+│ Tool B  ✓ │
+└───────────┘
+      │
+      ▼
+┌───────────┐
+│ Tool C  ✗ │
+└───────────┘
+      │
+      ▼
+┌───────┐
+│ Retry │
+└───────┘
+    │
+    ▼
+┌──────────────┐
+│ Wrong result │
+└──────────────┘
 ```
 
 Without traces, we may only see:
 
-``` text
-Agent returned the wrong answer.
-```
+> Agent returned the wrong answer.
 
 With observability, we can inspect:
 
 ``` text
-Trace
- ├── LLM call
- ├── Context size
- ├── Tool selection
- ├── Tool latency
- ├── Tool result
- ├── Retry
- ├── Validation
- └── Final response
+┌───────┐
+│ Trace │
+└───────┘
+    │
+    ├── LLM call
+    ├── Context size
+    ├── Tool selection
+    ├── Tool latency
+    ├── Tool result
+    ├── Retry
+    ├── Validation
+    └── Final response
 ```
 
 This makes agent behavior much easier to debug.
@@ -546,17 +573,15 @@ This makes agent behavior much easier to debug.
 
 For an agent system, I would at least track:
 
-``` text
-Latency
-Token usage
-Cost
-Tool calls
-Errors
-Retries
-Context size
-Success rate
-Validation results
-```
+-   Latency
+-   Token usage
+-   Cost
+-   Tool calls
+-   Errors
+-   Retries
+-   Context size
+-   Success rate
+-   Validation results
 
 This becomes especially important when agents can run for a long time.
 
@@ -583,17 +608,34 @@ That does not mean the task is finished.
 A better workflow is:
 
 ``` text
-Understand task
-      ↓
-Execute change
-      ↓
-Run tests
-      ↓
-Inspect result
-      ↓
-Verify behavior
-      ↓
-Accept / Retry
+┌─────────────────┐
+│ Understand task │
+└─────────────────┘
+         │
+         ▼
+┌────────────────┐
+│ Execute change │
+└────────────────┘
+         │
+         ▼
+┌───────────┐
+│ Run tests │
+└───────────┘
+      │
+      ▼
+┌────────────────┐
+│ Inspect result │
+└────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Verify behavior │
+└─────────────────┘
+         │
+         ▼
+┌────────────────┐
+│ Accept / Retry │
+└────────────────┘
 ```
 
 The survey organizes verification around benchmark grounding, readiness
@@ -608,23 +650,42 @@ that needs verification.
 For example:
 
 ``` text
-Agent writes code
-      ↓
-Run tests
-      ↓
-Agent sees result
-      ↓
-Agent corrects code
+┌───────────────────┐
+│ Agent writes code │
+└───────────────────┘
+          │
+          ▼
+┌───────────┐
+│ Run tests │
+└───────────┘
+      │
+      ▼
+┌───────────────────┐
+│ Agent sees result │
+└───────────────────┘
+          │
+          ▼
+┌─────────────────────┐
+│ Agent corrects code │
+└─────────────────────┘
 ```
 
 is generally better than:
 
 ``` text
-Agent writes code
-      ↓
-Everything finishes
-      ↓
-Human discovers failure
+┌───────────────────┐
+│ Agent writes code │
+└───────────────────┘
+          │
+          ▼
+┌─────────────────────┐
+│ Everything finishes │
+└─────────────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│ Human discovers failure │
+└─────────────────────────┘
 ```
 
 The first approach creates a feedback loop.
@@ -668,15 +729,29 @@ Agent → Database → Everything
 we want:
 
 ``` text
-Agent
-  ↓
-Policy
-  ↓
-Permission Check
-  ↓
-Allowed Query
-  ↓
-Database
+┌───────┐
+│ Agent │
+└───────┘
+    │
+    ▼
+┌────────┐
+│ Policy │
+└────────┘
+     │
+     ▼
+┌──────────────────┐
+│ Permission Check │
+└──────────────────┘
+          │
+          ▼
+┌───────────────┐
+│ Allowed Query │
+└───────────────┘
+        │
+        ▼
+┌──────────┐
+│ Database │
+└──────────┘
 ```
 
 This is particularly important when the agent generates actions
@@ -722,17 +797,34 @@ from the agent's point of view that decision is almost invisible.
 A good repository should therefore expose its knowledge clearly:
 
 ``` text
-AGENTS.md
-    ↓
-Architecture
-    ↓
-Design decisions
-    ↓
-Execution plans
-    ↓
-Implementation
-    ↓
-Tests
+┌───────────┐
+│ AGENTS.md │
+└───────────┘
+      │
+      ▼
+┌──────────────┐
+│ Architecture │
+└──────────────┘
+        │
+        ▼
+┌──────────────────┐
+│ Design decisions │
+└──────────────────┘
+          │
+          ▼
+┌─────────────────┐
+│ Execution plans │
+└─────────────────┘
+         │
+         ▼
+┌────────────────┐
+│ Implementation │
+└────────────────┘
+         │
+         ▼
+┌───────┐
+│ Tests │
+└───────┘
 ```
 
 Instead of putting hundreds of instructions into a single prompt, the
@@ -754,15 +846,17 @@ The ETCLOVG model gives me a useful way to reason about its
 architecture:
 
 ``` text
-ETCLOVG
-   │
-   ├── E → Execution environment
-   ├── T → Tools and interfaces
-   ├── C → Context engineering and memory
-   ├── L → Agent orchestration
-   ├── O → Observability and LLMOps
-   ├── V → Validation and evaluation
-   └── G → Governance and security
+┌─────────┐
+│ ETCLOVG │
+└─────────┘
+     │
+     ├── E → Execution environment
+     ├── T → Tools and interfaces
+     ├── C → Context engineering and memory
+     ├── L → Agent orchestration
+     ├── O → Observability and LLMOps
+     ├── V → Validation and evaluation
+     └── G → Governance and security
 ```
 
 ![The Aptico CLI harness architecture: Observability & Operations monitors the four core layers (Execution & Sandbox, Tool Interface & Protocol, Context & Memory Management, Lifecycle & Orchestration), which feed into Verification & Evaluation and finally Governance & Security](assets/images/aptico-harness-architecture.png){: .doc-diagram }
@@ -773,21 +867,13 @@ I see it more as an **architectural checklist**.
 
 For every new capability in Aptico, I can ask:
 
-``` text
-Does it affect execution?
-
-Does it introduce a new tool?
-
-Does it require new context?
-
-Does it change orchestration?
-
-Can we observe it?
-
-Can we verify it?
-
-Is it secure?
-```
+-   Does it affect execution?
+-   Does it introduce a new tool?
+-   Does it require new context?
+-   Does it change orchestration?
+-   Can we observe it?
+-   Can we verify it?
+-   Is it secure?
 
 This makes architectural decisions easier to reason about.
 
@@ -814,15 +900,29 @@ Do not send everything to the LLM.
 Build a context pipeline:
 
 ``` text
-Retrieve
-   ↓
-Rank
-   ↓
-Filter
-   ↓
-Compress
-   ↓
-Inject
+┌──────────┐
+│ Retrieve │
+└──────────┘
+      │
+      ▼
+┌──────┐
+│ Rank │
+└──────┘
+    │
+    ▼
+┌────────┐
+│ Filter │
+└────────┘
+     │
+     ▼
+┌──────────┐
+│ Compress │
+└──────────┘
+      │
+      ▼
+┌────────┐
+│ Inject │
+└────────┘
 ```
 
 This can reduce cost and make the agent's behavior more predictable.
@@ -832,13 +932,24 @@ This can reduce cost and make the agent's behavior more predictable.
 If the agent modifies something, give it a way to check the result.
 
 ``` text
-Action
- ↓
-Observation
- ↓
-Validation
- ↓
-Correction
+┌────────┐
+│ Action │
+└────────┘
+     │
+     ▼
+┌─────────────┐
+│ Observation │
+└─────────────┘
+       │
+       ▼
+┌────────────┐
+│ Validation │
+└────────────┘
+       │
+       ▼
+┌────────────┐
+│ Correction │
+└────────────┘
 ```
 
 This is much more powerful than simply increasing the model size.
@@ -854,15 +965,13 @@ all influence how reliably the model can use the tool.
 
 If an agent fails, I want to answer:
 
-``` text
-What did it see?
-What did it decide?
-Which tool did it call?
-What did the tool return?
-How long did it take?
-Did it retry?
-Why did validation fail?
-```
+-   What did it see?
+-   What did it decide?
+-   Which tool did it call?
+-   What did the tool return?
+-   How long did it take?
+-   Did it retry?
+-   Why did validation fail?
 
 If these questions cannot be answered, debugging becomes guesswork.
 
@@ -873,15 +982,29 @@ Security should not be added after the agent becomes autonomous.
 Permissions should be part of the architecture from the beginning.
 
 ``` text
-Capability
-    ↓
-Permission
-    ↓
-Policy
-    ↓
-Execution
-    ↓
-Audit
+┌────────────┐
+│ Capability │
+└────────────┘
+       │
+       ▼
+┌────────────┐
+│ Permission │
+└────────────┘
+       │
+       ▼
+┌────────┐
+│ Policy │
+└────────┘
+     │
+     ▼
+┌───────────┐
+│ Execution │
+└───────────┘
+      │
+      ▼
+┌───────┐
+│ Audit │
+└───────┘
 ```
 
 ## 7. Keep the harness modular
@@ -916,22 +1039,20 @@ lifecycle management, observability, verification, and governance.
 
 For me, the useful mindset is therefore:
 
-``` text
 Don't ask only:
 
-"Which model should I use?"
+> "Which model should I use?"
 
 Also ask:
 
-"Where will it execute?"
-"What will it see?"
-"What can it do?"
-"How will it remember?"
-"How will I know what happened?"
-"How will I verify the result?"
-"What happens when it fails?"
-"What is it allowed to do?"
-```
+-   "Where will it execute?"
+-   "What will it see?"
+-   "What can it do?"
+-   "How will it remember?"
+-   "How will I know what happened?"
+-   "How will I verify the result?"
+-   "What happens when it fails?"
+-   "What is it allowed to do?"
 
 That is where I see **Harness Engineering** becoming an important part
 of modern AI engineering.
