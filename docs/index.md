@@ -14,7 +14,7 @@ tags:
 title: Harness Engineering for AI Agents
 ---
 
-# Harness Engineering ?
+# Harness Engineering for AI Agents
 
 > How do we move from building an AI model application to building a
 > reliable AI system?
@@ -190,15 +190,24 @@ machine.
 I would start with:
 
 ``` text
-Agent
-  ↓
-Workspace
-  ↓
-Sandbox
-  ├── Files
-  ├── Tools
-  ├── Limited network
-  └── Limited permissions
+┌───────┐
+│ Agent │
+└───────┘
+    │
+    ▼
+┌───────────┐
+│ Workspace │
+└───────────┘
+    │
+    ▼
+┌─────────┐
+│ Sandbox │
+└─────────┘
+    │
+    ├── Files
+    ├── Tools
+    ├── Limited network
+    └── Limited permissions
 ```
 
 This makes failures easier to reproduce and easier to investigate.
@@ -213,14 +222,16 @@ world.
 For example:
 
 ``` text
-LLM
- │
- ├── filesystem
- ├── terminal
- ├── database
- ├── browser
- ├── Git
- └── APIs
+┌─────┐
+│ LLM │
+└─────┘
+    │
+    ├── filesystem
+    ├── terminal
+    ├── database
+    ├── browser
+    ├── Git
+    └── APIs
 ```
 
 But simply giving an agent many tools is not necessarily a good design.
@@ -246,13 +257,24 @@ This increases context usage and can make tool selection more difficult.
 A better approach is often:
 
 ``` text
-User request
-     ↓
-Tool selection
-     ↓
-Relevant tools only
-     ↓
-Agent execution
+┌──────────────┐
+│ User request │
+└──────────────┘
+        │
+        ▼
+┌────────────────┐
+│ Tool selection │
+└────────────────┘
+         │
+         ▼
+┌─────────────────────┐
+│ Relevant tools only │
+└─────────────────────┘
+           │
+           ▼
+┌─────────────────┐
+│ Agent execution │
+└─────────────────┘
 ```
 
 ### Observation
@@ -277,17 +299,34 @@ large.
 We can think about context at different levels:
 
 ``` text
-Short-term
-   ↓
-Current task / active context
+┌────────────┐
+│ Short-term │
+└────────────┘
+       │
+       ▼
+┌───────────────────────────────┐
+│ Current task / active context │
+└───────────────────────────────┘
 
-Mid-term
-   ↓
-Session state
 
-Long-term
-   ↓
-Persistent memory
+┌──────────┐
+│ Mid-term │
+└──────────┘
+      │
+      ▼
+┌───────────────┐
+│ Session state │
+└───────────────┘
+
+
+┌───────────┐
+│ Long-term │
+└───────────┘
+      │
+      ▼
+┌───────────────────┐
+│ Persistent memory │
+└───────────────────┘
 ```
 
 The survey distinguishes short-term active context, session-level
@@ -325,17 +364,34 @@ Everything → LLM
 we want:
 
 ``` text
-Everything
-    ↓
-Selection
-    ↓
-Filtering
-    ↓
-Compression
-    ↓
-Relevant context
-    ↓
-LLM
+┌────────────┐
+│ Everything │
+└────────────┘
+       │
+       ▼
+┌───────────┐
+│ Selection │
+└───────────┘
+      │
+      ▼
+┌───────────┐
+│ Filtering │
+└───────────┘
+      │
+      ▼
+┌─────────────┐
+│ Compression │
+└─────────────┘
+       │
+       ▼
+┌──────────────────┐
+│ Relevant context │
+└──────────────────┘
+          │
+          ▼
+┌─────┐
+│ LLM │
+└─────┘
 ```
 
 This is where Context Engineering becomes an essential part of Harness
@@ -354,23 +410,49 @@ User → LLM → Answer
 For a real task, the execution can look more like:
 
 ``` text
-User request
-      ↓
-Planning
-      ↓
-Context construction
-      ↓
-Tool selection
-      ↓
-Execution
-      ↓
-Observation
-      ↓
-Validation
-      ↓
-Retry / Continue / Delegate
-      ↓
-Final result
+┌──────────────┐
+│ User request │
+└──────────────┘
+        │
+        ▼
+┌──────────┐
+│ Planning │
+└──────────┘
+      │
+      ▼
+┌──────────────────────┐
+│ Context construction │
+└──────────────────────┘
+            │
+            ▼
+┌────────────────┐
+│ Tool selection │
+└────────────────┘
+         │
+         ▼
+┌───────────┐
+│ Execution │
+└───────────┘
+      │
+      ▼
+┌─────────────┐
+│ Observation │
+└─────────────┘
+       │
+       ▼
+┌────────────┐
+│ Validation │
+└────────────┘
+       │
+       ▼
+┌─────────────────────────────┐
+│ Retry / Continue / Delegate │
+└─────────────────────────────┘
+               │
+               ▼
+┌──────────────┐
+│ Final result │
+└──────────────┘
 ```
 
 For multi-agent systems, this becomes even more interesting.
