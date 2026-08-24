@@ -63,7 +63,9 @@ code {
   font-size: 0.9em;
 }
 
-pre {
+pre,
+.highlight,
+.highlighter-rouge .highlight {
   background: #0f172a;
   border-radius: 10px;
   padding: 1em 1.2em;
