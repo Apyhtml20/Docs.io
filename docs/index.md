@@ -11,7 +11,7 @@ tags:
 - multi-agent
 - llmops
 - ETCLOVG
-title: Harness Engineering 
+title: Harness Engineering for AI Agents
 ---
 
 # Harness Engineering?
