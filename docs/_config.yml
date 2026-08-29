@@ -1,13 +1,13 @@
-title: "Your Name"
+title: "ABADOUR HICHAM"
 description: "AI Engineering Blog & Portfolio"
 baseurl: ""
-url: "https://username.github.io"
+url: "https://Apyhtml20.github.io"
 
 author:
-  name: "Your Name"
-  email: "your@email.com"
-  github: "username"
-  linkedin: "your-linkedin"
+  name: "ABADOUR HICHAM"
+  email: "hicham.abadour.23@ump.ac.ma"
+  github: "Apyhtml20"
+  linkedin: "https://www.linkedin.com/in/hicham-abadour-2166ba99"
 
 markdown: kramdown
 highlighter: rouge
