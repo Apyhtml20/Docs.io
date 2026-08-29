@@ -30,7 +30,6 @@
 
         <div class="sidebar-section">
           <a href="{{ '/' | relative_url }}" class="sidebar-item {% if page.url == '/' %}active{% endif %}">🏠 Home</a>
-          <a href="{{ '/about' | relative_url }}" class="sidebar-item {% if page.url contains 'about' %}active{% endif %}">👤 About Me</a>
         </div>
 
         <div class="sidebar-section">
@@ -41,13 +40,6 @@
             {{ post.title | truncate: 32 }}
           </a>
           {% endfor %}
-        </div>
-
-        <div class="sidebar-section">
-          <div class="sidebar-group-label">Portfolio</div>
-          <a href="{{ '/projects' | relative_url }}" class="sidebar-item {% if page.url contains 'projects' %}active{% endif %}">Projects</a>
-          <a href="{{ '/cv' | relative_url }}" class="sidebar-item {% if page.url contains 'cv' %}active{% endif %}">CV / Résumé</a>
-          <a href="{{ '/contact' | relative_url }}" class="sidebar-item {% if page.url contains 'contact' %}active{% endif %}">Contact</a>
         </div>
 
       </nav>
