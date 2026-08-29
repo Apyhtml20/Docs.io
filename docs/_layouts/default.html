@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0b0b0d" />
   <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,8 +20,8 @@
     </div>
     <nav class="topnav-links">
       <a href="https://github.com/{{ site.author.github }}" target="_blank">GitHub</a>
-      <a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank">LinkedIn</a>
-      <a href="https://huggingface.co/{{ site.author.HuggingFace }}" target="_blank">Hugging Face</a>
+      <a href="{{ site.author.linkedin }}" target="_blank">LinkedIn</a>
+      <a href="{{ site.author.HuggingFace }}" target="_blank">Hugging Face</a>
     </nav>
   </header>
 
