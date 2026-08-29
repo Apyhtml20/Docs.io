@@ -1,0 +1,61 @@
+---
+layout: default
+---
+
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+  <a href="{{ '/' | relative_url }}">All Posts</a>
+  <span>›</span>
+  {% for cat in page.categories %}
+  <a href="#">{{ cat }}</a>
+  {% unless forloop.last %}<span>›</span>{% endunless %}
+  {% endfor %}
+  <span>›</span>
+  <span>{{ page.title | truncate: 40 }}</span>
+</div>
+
+<!-- Post header -->
+<h1 class="page-title">{{ page.title }}</h1>
+
+<div class="post-header-meta">
+  <span class="post-date-sm">{{ page.date | date: "%d %B %Y" }}</span>
+  {% if page.tags %}
+  <div class="post-header-tags">
+    {% for tag in page.tags %}
+    <span class="tag">{{ tag }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<div class="divider"></div>
+
+<!-- Post body -->
+<div class="article-body">
+  {{ content }}
+</div>
+
+<div class="divider"></div>
+
+<!-- Feedback -->
+<div class="feedback">
+  <p>Cet article vous a été utile ?</p>
+  <div class="feedback-btns">
+    <button>😞</button>
+    <button>😐</button>
+    <button>😊</button>
+  </div>
+</div>
+
+<!-- Related posts -->
+{% assign related = site.posts | where_exp: "p", "p.url != page.url" | limit: 3 %}
+{% if related.size > 0 %}
+<div class="related">
+  <h3>Articles liés</h3>
+  {% for post in related %}
+  <a href="{{ post.url | relative_url }}" class="related-item">
+    {{ post.title }} <span>›</span>
+  </a>
+  {% endfor %}
+</div>
+{% endif %}

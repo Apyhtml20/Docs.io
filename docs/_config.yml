@@ -1,11 +1,34 @@
-title: Aptico Documentation
-description: Agentic AI Engineering with Aptico CLI
-url: "https://apyhtml20.github.io"
-baseurl: "/Docs.io"
-theme: minima
+title: "Your Name"
+description: "AI Engineering Blog & Portfolio"
+baseurl: ""
+url: "https://username.github.io"
+
+author:
+  name: "Your Name"
+  email: "your@email.com"
+  github: "username"
+  linkedin: "your-linkedin"
 
 markdown: kramdown
+highlighter: rouge
+permalink: /posts/:title/
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

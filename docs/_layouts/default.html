@@ -1,16 +1,64 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+</head>
+<body>
 
-  {%- include head.html -%}
+  <!-- TOP NAV -->
+  <header class="topnav">
+    <div class="topnav-left">
+      <a href="{{ '/' | relative_url }}" class="site-logo">✦ {{ site.title }}</a>
+    </div>
+    <nav class="topnav-links">
+      <a href="https://github.com/{{ site.author.github }}" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank">LinkedIn</a>
+    </nav>
+  </header>
 
-  <body>
+  <div class="layout">
 
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {{ content }}
-      </div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+
+        <div class="sidebar-section">
+          <a href="{{ '/' | relative_url }}" class="sidebar-item {% if page.url == '/' %}active{% endif %}">🏠 Home</a>
+          <a href="{{ '/about' | relative_url }}" class="sidebar-item {% if page.url contains 'about' %}active{% endif %}">👤 About Me</a>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-group-label">Posts AI</div>
+          {% assign ai_posts = site.posts | where_exp: "p", "p.categories contains 'AI Engineering'" %}
+          {% for post in ai_posts limit: 10 %}
+          <a href="{{ post.url | relative_url }}" class="sidebar-item {% if page.url == post.url %}active{% endif %}">
+            {{ post.title | truncate: 32 }}
+          </a>
+          {% endfor %}
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-group-label">Portfolio</div>
+          <a href="{{ '/projects' | relative_url }}" class="sidebar-item {% if page.url contains 'projects' %}active{% endif %}">Projects</a>
+          <a href="{{ '/cv' | relative_url }}" class="sidebar-item {% if page.url contains 'cv' %}active{% endif %}">CV / Résumé</a>
+          <a href="{{ '/contact' | relative_url }}" class="sidebar-item {% if page.url contains 'contact' %}active{% endif %}">Contact</a>
+        </div>
+
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      {{ content }}
     </main>
 
-  </body>
+  </div>
 
+</body>
 </html>
