@@ -17,11 +17,7 @@ title: Home
 
 <div class="divider"></div>
 
-<img
-  src="{{ '/assets/images/handson.jpg' | relative_url }}"
-  alt="Hands-on AI"
-  class="hero-image"
->
+<img src="{{ '/assets/images/handson.jpg' | relative_url }}" alt="Hands-on AI" class="hero-image">
 
 <p>
   Je suis étudiant en <strong>Génie informatique à ENSAO</strong>, passionné par
@@ -50,8 +46,6 @@ title: Home
 
 <a href="{{ post.url | relative_url }}" class="post-item">
 
-  {% include cover.html item=post mode="thumb" %}
-
   <div class="post-item-body">
 
     <div class="post-item-meta">
@@ -75,6 +69,8 @@ title: Home
     </div>
 
   </div>
+
+  {% include cover.html item=post size="list" %}
 
 </a>
 

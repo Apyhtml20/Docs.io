@@ -3,14 +3,24 @@
 {% assign _icon_seed = _title_len | plus: 3 | modulo: 6 %}
 {% assign _icons = "🧠,🤖,🔍,📚,⚡,🧩" | split: "," %}
 {% assign _icon = _icons[_icon_seed] %}
-{% if include.mode == "thumb" %}
-<div class="cover-thumb hue-{{ _hue }}"><span class="cover-thumb-icon">{{ _icon }}</span></div>
+{% if include.size == "compact" %}
+<div class="cover-badge cover-{{ _hue }}"><span class="cover-badge-icon">{{ _icon }}</span></div>
 {% else %}
+{% assign _cat = include.item.categories | first | default: "AI Engineering" %}
 {% assign _words = include.item.content | strip_html | number_of_words %}
 {% assign _read = _words | divided_by: 200 %}
 {% if _read == 0 %}{% assign _read = 1 %}{% endif %}
-<div class="post-cover hue-{{ _hue }}">
-  <span class="post-cover-readtime">⏱ {{ _read }} min de lecture</span>
+<div class="post-cover-card cover-{{ _hue }} size-{{ include.size }}" data-icon="{{ _icon }}">
   <span class="post-cover-icon">{{ _icon }}</span>
+  <div class="post-cover-info">
+    <span class="post-cover-eyebrow">{{ _cat }}</span>
+    <span class="post-cover-title">{{ include.item.title }}</span>
+    <div class="post-cover-rule"></div>
+    <div class="post-cover-stats">
+      <div><span class="label">Catégorie</span><span class="value">{{ _cat | truncate: 18 }}</span></div>
+      <div><span class="label">Publié</span><span class="value">{{ include.item.date | date: "%d %b %Y" }}</span></div>
+      <div><span class="label">Lecture</span><span class="value">{{ _read }} min</span></div>
+    </div>
+  </div>
 </div>
 {% endif %}

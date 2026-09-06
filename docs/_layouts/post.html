@@ -3,7 +3,7 @@ layout: default
 ---
 
 <!-- Cover -->
-{% include cover.html item=page mode="full" %}
+{% include cover.html item=page size="hero" %}
 
 <!-- Breadcrumb -->
 <div class="breadcrumb">
@@ -23,12 +23,7 @@ layout: default
 <div class="post-header-meta">
   <span class="post-date-sm">{{ page.date | date: "%d %B %Y" }}</span>
   <span class="post-date-sm">·</span>
-  <span class="post-date-sm">✍️ {{ site.author.name }}</span>
-  <span class="post-date-sm">·</span>
-  {% assign _words = page.content | strip_html | number_of_words %}
-  {% assign _read_time = _words | divided_by: 200 %}
-  {% if _read_time == 0 %}{% assign _read_time = 1 %}{% endif %}
-  <span class="post-date-sm">⏱ {{ _read_time }} min de lecture</span>
+  <span class="post-date-sm">✍️ Rédigé par {{ site.author.name }}</span>
   {% if page.tags %}
   <div class="post-header-tags">
     {% for tag in page.tags %}
@@ -64,7 +59,7 @@ layout: default
   <h3>À lire ensuite</h3>
   {% for post in related %}
   <a href="{{ post.url | relative_url }}" class="related-item">
-    {% include cover.html item=post mode="thumb" %}
+    {% include cover.html item=post size="compact" %}
     <div class="related-item-body">
       <span class="related-item-title">{{ post.title }}</span>
       <span class="related-item-date">{{ post.date | date: "%d %b %Y" }}</span>
