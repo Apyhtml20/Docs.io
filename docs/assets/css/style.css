@@ -397,6 +397,22 @@ a:hover { color: var(--accent-strong); text-decoration: underline; }
 .related-item:hover { color: var(--accent); text-decoration: none; }
 .related-item span { color: var(--text-muted); }
 
+/* ── Hero image (index) ── */
+.hero-image {
+  display: block;
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  margin: 0 0 28px;
+}
+
+@media (max-width: 768px) {
+  .hero-image { max-height: 220px; }
+}
+
 /* ── Index prose ── */
 .main > p,
 .main > ul,
