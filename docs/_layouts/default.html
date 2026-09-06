@@ -16,7 +16,13 @@
   <!-- TOP NAV -->
   <header class="topnav">
     <div class="topnav-left">
-      <a href="{{ '/' | relative_url }}" class="site-logo">✦ {{ site.title }}</a>
+      <a href="{{ '/' | relative_url }}" class="site-logo">
+        <span class="site-logo-badge">{{ site.author.name | slice: 0 }}{{ site.author.name | split: " " | last | slice: 0 }}</span>
+        <span class="site-logo-text">
+          <span class="site-logo-name">{{ site.author.name }}</span>
+          <span class="site-logo-tag">AI Engineering Blog</span>
+        </span>
+      </a>
     </div>
     <nav class="topnav-links">
       <a href="https://github.com/{{ site.author.github }}" target="_blank">GitHub</a>
@@ -36,11 +42,14 @@
         </div>
 
         <div class="sidebar-section">
-          <div class="sidebar-group-label">Posts AI</div>
           {% assign ai_posts = site.posts | where_exp: "p", "p.categories contains 'AI Engineering'" %}
+          <div class="sidebar-group-label">
+            <span>Posts AI</span>
+            <span class="sidebar-group-count">{{ ai_posts.size }}</span>
+          </div>
           {% for post in ai_posts limit: 10 %}
           <a href="{{ post.url | relative_url }}" class="sidebar-item {% if page.url == post.url %}active{% endif %}">
-            {{ post.title | truncate: 32 }}
+            <span class="sidebar-item-dot"></span>{{ post.title | truncate: 32 }}
           </a>
           {% endfor %}
         </div>

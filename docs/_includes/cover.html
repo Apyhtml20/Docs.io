@@ -3,24 +3,35 @@
 {% assign _icon_seed = _title_len | plus: 3 | modulo: 6 %}
 {% assign _icons = "🧠,🤖,🔍,📚,⚡,🧩" | split: "," %}
 {% assign _icon = _icons[_icon_seed] %}
+{% assign _cover_img = include.item.cover %}
 {% if include.size == "compact" %}
-<div class="cover-badge cover-{{ _hue }}"><span class="cover-badge-icon">{{ _icon }}</span></div>
+  {% if _cover_img %}
+  <div class="cover-badge" style="background-image:url('{{ _cover_img | relative_url }}')"></div>
+  {% else %}
+  <div class="cover-badge cover-{{ _hue }}"><span class="cover-badge-icon">{{ _icon }}</span></div>
+  {% endif %}
+{% elsif include.size == "upcoming" %}
+<div class="post-cover-card size-list is-upcoming{% unless _cover_img %} cover-{{ _hue }}{% endunless %}" {% if _cover_img %}style="background-image:url('{{ _cover_img | relative_url }}')"{% endif %}>
+  {% if _cover_img %}<div class="post-cover-scrim"></div>{% endif %}
+  <div class="post-cover-info">
+    <span class="post-cover-eyebrow">{{ include.item.category }}</span>
+    <span class="post-cover-title">{{ include.item.title }}</span>
+    <span class="post-cover-duration">🔒 Bientôt disponible</span>
+  </div>
+  {% unless _cover_img %}<span class="post-cover-icon-fallback">{{ _icon }}</span>{% endunless %}
+</div>
 {% else %}
 {% assign _cat = include.item.categories | first | default: "AI Engineering" %}
 {% assign _words = include.item.content | strip_html | number_of_words %}
 {% assign _read = _words | divided_by: 200 %}
 {% if _read == 0 %}{% assign _read = 1 %}{% endif %}
-<div class="post-cover-card cover-{{ _hue }} size-{{ include.size }}" data-icon="{{ _icon }}">
-  <span class="post-cover-icon">{{ _icon }}</span>
+<div class="post-cover-card size-{{ include.size }}{% unless _cover_img %} cover-{{ _hue }}{% endunless %}" {% if _cover_img %}style="background-image:url('{{ _cover_img | relative_url }}')"{% endif %}>
+  {% if _cover_img %}<div class="post-cover-scrim"></div>{% endif %}
   <div class="post-cover-info">
     <span class="post-cover-eyebrow">{{ _cat }}</span>
     <span class="post-cover-title">{{ include.item.title }}</span>
-    <div class="post-cover-rule"></div>
-    <div class="post-cover-stats">
-      <div><span class="label">Catégorie</span><span class="value">{{ _cat | truncate: 18 }}</span></div>
-      <div><span class="label">Publié</span><span class="value">{{ include.item.date | date: "%d %b %Y" }}</span></div>
-      <div><span class="label">Lecture</span><span class="value">{{ _read }} min</span></div>
-    </div>
+    <span class="post-cover-duration">⏱ {{ _read }} min de lecture</span>
   </div>
+  {% unless _cover_img %}<span class="post-cover-icon-fallback">{{ _icon }}</span>{% endunless %}
 </div>
 {% endif %}

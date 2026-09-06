@@ -77,3 +77,38 @@ title: Home
 {% endfor %}
 
 </div>
+
+{% if site.data.upcoming.size > 0 %}
+<h2>Prochainement</h2>
+
+<div class="post-list">
+
+{% for item in site.data.upcoming %}
+
+<div class="post-item post-item-upcoming">
+
+  <div class="post-item-body">
+
+    <div class="post-item-meta">
+      <span class="post-tag">{{ item.category }}</span>
+      <span class="post-date-sm">Bientôt disponible</span>
+    </div>
+
+    <div class="post-item-title">
+      {{ item.title }}
+    </div>
+
+    <div class="post-item-desc">
+      Article en cours de rédaction — publication prochainement.
+    </div>
+
+  </div>
+
+  {% include cover.html item=item size="upcoming" %}
+
+</div>
+
+{% endfor %}
+
+</div>
+{% endif %}
