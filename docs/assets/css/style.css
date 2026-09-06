@@ -413,7 +413,13 @@ a:hover { color: var(--accent-strong); text-decoration: underline; }
 
 .post-cover-card.size-hero { width: 100%; min-height: 220px; margin-bottom: 24px; padding: 0 32px; }
 .post-cover-card.size-hero .post-cover-icon { width: 72px; height: 72px; font-size: 30px; }
-.post-cover-card.size-hero .post-cover-title { font-size: 20px; }
+.post-cover-card.size-hero .post-cover-title {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
 
 /* Compact badge used in tight list rows (e.g. "À lire ensuite") */
 .cover-badge {
