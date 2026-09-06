@@ -50,24 +50,30 @@ title: Home
 
 <a href="{{ post.url | relative_url }}" class="post-item">
 
-  <div class="post-item-meta">
+  {% include cover.html item=post mode="thumb" %}
 
-    {% for cat in post.categories limit: 1 %}
-      <span class="post-tag">{{ cat }}</span>
-    {% endfor %}
+  <div class="post-item-body">
 
-    <span class="post-date-sm">
-      {{ post.date | date: "%d %b %Y" }}
-    </span>
+    <div class="post-item-meta">
 
-  </div>
+      {% for cat in post.categories limit: 1 %}
+        <span class="post-tag">{{ cat }}</span>
+      {% endfor %}
 
-  <div class="post-item-title">
-    {{ post.title }}
-  </div>
+      <span class="post-date-sm">
+        {{ post.date | date: "%d %b %Y" }}
+      </span>
 
-  <div class="post-item-desc">
-    {{ post.excerpt | strip_html | truncate: 140 }}
+    </div>
+
+    <div class="post-item-title">
+      {{ post.title }}
+    </div>
+
+    <div class="post-item-desc">
+      {{ post.excerpt | strip_html | truncate: 140 }}
+    </div>
+
   </div>
 
 </a>

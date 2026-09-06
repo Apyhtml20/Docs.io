@@ -1,0 +1,16 @@
+{% assign _title_len = include.item.title | size %}
+{% assign _hue = _title_len | modulo: 5 %}
+{% assign _icon_seed = _title_len | plus: 3 | modulo: 6 %}
+{% assign _icons = "🧠,🤖,🔍,📚,⚡,🧩" | split: "," %}
+{% assign _icon = _icons[_icon_seed] %}
+{% if include.mode == "thumb" %}
+<div class="cover-thumb hue-{{ _hue }}"><span class="cover-thumb-icon">{{ _icon }}</span></div>
+{% else %}
+{% assign _words = include.item.content | strip_html | number_of_words %}
+{% assign _read = _words | divided_by: 200 %}
+{% if _read == 0 %}{% assign _read = 1 %}{% endif %}
+<div class="post-cover hue-{{ _hue }}">
+  <span class="post-cover-readtime">⏱ {{ _read }} min de lecture</span>
+  <span class="post-cover-icon">{{ _icon }}</span>
+</div>
+{% endif %}

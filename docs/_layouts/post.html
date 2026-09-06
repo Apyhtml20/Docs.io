@@ -2,6 +2,9 @@
 layout: default
 ---
 
+<!-- Cover -->
+{% include cover.html item=page mode="full" %}
+
 <!-- Breadcrumb -->
 <div class="breadcrumb">
   <a href="{{ '/' | relative_url }}">All Posts</a>
@@ -19,6 +22,13 @@ layout: default
 
 <div class="post-header-meta">
   <span class="post-date-sm">{{ page.date | date: "%d %B %Y" }}</span>
+  <span class="post-date-sm">·</span>
+  <span class="post-date-sm">✍️ {{ site.author.name }}</span>
+  <span class="post-date-sm">·</span>
+  {% assign _words = page.content | strip_html | number_of_words %}
+  {% assign _read_time = _words | divided_by: 200 %}
+  {% if _read_time == 0 %}{% assign _read_time = 1 %}{% endif %}
+  <span class="post-date-sm">⏱ {{ _read_time }} min de lecture</span>
   {% if page.tags %}
   <div class="post-header-tags">
     {% for tag in page.tags %}
@@ -51,10 +61,15 @@ layout: default
 {% assign related = site.posts | where_exp: "p", "p.url != page.url" | limit: 3 %}
 {% if related.size > 0 %}
 <div class="related">
-  <h3>Articles liés</h3>
+  <h3>À lire ensuite</h3>
   {% for post in related %}
   <a href="{{ post.url | relative_url }}" class="related-item">
-    {{ post.title }} <span>›</span>
+    {% include cover.html item=post mode="thumb" %}
+    <div class="related-item-body">
+      <span class="related-item-title">{{ post.title }}</span>
+      <span class="related-item-date">{{ post.date | date: "%d %b %Y" }}</span>
+    </div>
+    <span class="related-arrow">›</span>
   </a>
   {% endfor %}
 </div>
