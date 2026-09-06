@@ -13,7 +13,7 @@ title: Home
 <p class="page-date">Mis à jour le {{ site.time | date: "%d %B %Y" }}</p>
 
 <div class="divider"></div>
-
+<img src="{{ '/assets/images/handson.jpg' | relative_url }}" alt="Hands-on AI"class="hero-image">
 Je suis étudiant en **Génie informatique à ENSAO**, passionné par l'intelligence artificielle, les LLMs, et le Data Engineering. Ce site est l'endroit où je publie mes notes, articles, et projets.
 
 Vous trouverez ici des articles techniques sur les grands modèles de langage, le déploiement de modèles ML en production, les systèmes RAG, l'ingénierie des agents, et bien plus.
