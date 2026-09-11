@@ -371,6 +371,31 @@ a:hover { color: var(--accent-strong); text-decoration: underline; }
   display: block;
 }
 
+/* ── Math ── */
+.article-body .math-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin: 20px 0 26px;
+  overflow-x: auto;
+  text-align: center;
+}
+.article-body .math-block .katex-display {
+  margin: 0;
+}
+.article-body .katex {
+  font-size: 1.1em;
+  color: var(--text);
+}
+.article-body .math-caption {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
 /* ── HR ── */
 .article-body hr {
   border: none;
