@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Why world models?
-date: 2026-09-09
+date: 2026-09-02
+published: false
 cover: /assets/images/covers/world-models.jpg
 categories:
   - AI Engineering
@@ -9,15 +10,24 @@ tags:
   - world-models
   - reinforcement-learning
 ---
-# Why World Models?
+# Why World Models over The classical ones?
 
-> From Vision to JEPA, Reinforcement Learning and Agents.
+## From Vision to JEPA, Reinforcement Learning and Agents
 
-## 1. Why World Models over the Classical Ones?
+## 1. Why World Models ?
 
 Most AI models solve a specific problem:
 
-![Table comparing AI components (vision model, LLM, RAG, memory, tool, reinforcement learning, world model, planner) with the main question each one answers]({{ '/assets/images/why_world_models_images/component_question_table.png' | relative_url }}){: .doc-diagram }
+  Component                Main question
+  ------------------------ --------------------------------------------
+  Vision model             What do I see?
+  LLM                      What should I generate/reason about?
+  RAG                      What information can I retrieve?
+  Memory                   What happened before?
+  Tool                     What can I do?
+  Reinforcement Learning   Which behavior maximizes long-term reward?
+  World Model              What could happen next?
+  Planner                  Which action should I take?
 
 The key idea of a World Model is:
 
@@ -203,9 +213,12 @@ World Model
 The objective is to learn a compact representation that preserves
 information useful for prediction and decision-making.
 
+![Latent-space / World Model
+illustration](assets/world_model_toolkit.png)
+
 ------------------------------------------------------------------------
 
-## 5. The Four Core Ideas
+# 5. The Four Core Ideas
 
 A useful way to understand World Models together with Reinforcement
 Learning is through four concepts:
@@ -215,11 +228,12 @@ Learning is through four concepts:
 3.  Value
 4.  Behavior learning
 
-![The four core building blocks of a World Model: compression, reward over time, value, and behavior learning]({{ '/assets/images/why_world_models_images/four_core_ideas.png' | relative_url }}){: .doc-diagram }
+![Four World Model / RL toolkit
+concepts](assets/world_model_toolkit.png)
 
 ------------------------------------------------------------------------
 
-### 5.1 Compression --- Latent Space
+## 5.1 Compression --- Latent Space
 
 Instead of modeling raw observations directly:
 
@@ -236,37 +250,30 @@ relevant future states.
 
 A simplified dynamics model is:
 
-<div class="math-block">
-$$
-z_{t+1} = f(z_t, a_t)
-$$
-</div>
+\[ z\_{t+1} = f(z_t, a_t) \]
 
 where:
 
--   \\(z_t\\) = current latent state
--   \\(a_t\\) = action
--   \\(z_{t+1}\\) = predicted future latent state
+-   `z_t` = current latent state
+-   `a_t` = action
+-   `z_{t+1}` = predicted future latent state
 
 ------------------------------------------------------------------------
 
-### 5.2 Reward Over Time
+## 5.2 Reward Over Time
 
 In Reinforcement Learning, an action can have consequences several steps
 later.
 
 The return is:
 
-<div class="math-block">
-$$
-G_t = r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} + \dots
-$$
-</div>
+\[ G_t = r_t + `\gamma `{=tex}r\_{t+1} + `\gamma`{=tex}\^2r\_{t+2} + ...
+\]
 
 where:
 
--   \\(r_t\\) = reward at time \\(t\\)
--   \\(\gamma\\) = discount factor
+-   `r_t` = reward at time `t`
+-   `γ` = discount factor
 
 Therefore, an action should not only be evaluated by its immediate
 reward.
@@ -285,15 +292,14 @@ This is one reason temporal modeling is important.
 
 ------------------------------------------------------------------------
 
-### 5.3 Value
+## 5.3 Value
 
 The value function estimates the expected future return from a state:
 
-<div class="math-block">
-$$
-V(s) = \mathbb{E}\left[ \sum_{k=0}^{\infty} \gamma^k r_{t+k} \;\middle|\; s_t = s \right]
-$$
-</div>
+\[ V(s) = E`\left[
+\sum_{k=0}^{\infty}\gamma^k r_{t+k}
+\mid s_t=s
+\right]`{=tex}\]
 
 Simplified:
 
@@ -309,7 +315,7 @@ This is useful for comparing possible trajectories.
 
 ------------------------------------------------------------------------
 
-### 5.4 Learning Behavior
+## 5.4 Learning Behavior
 
 A common RL architecture separates the Actor and Critic:
 
@@ -324,10 +330,6 @@ A common RL architecture separates the Actor and Critic:
 
 -   **Actor**: chooses an action.
 -   **Critic**: evaluates the state/action.
-
-This is close to the broader cognitive architecture proposed by Yann LeCun, where a World Model sits alongside Perception, an Actor and a Critic:
-
-![LeCun's cognitive architecture: Perception, World Model, Actor and Critic working together]({{ '/assets/images/why_world_models_images/lecun_cognitive_architecture.png' | relative_url }}){: .doc-diagram }
 
 This can be combined with a World Model:
 
@@ -347,9 +349,9 @@ Action
 
 ------------------------------------------------------------------------
 
-## 6. Model-Free vs Model-Based Reinforcement Learning
+# 6. Model-Free vs Model-Based Reinforcement Learning
 
-### Model-Free RL
+## Model-Free RL
 
 The agent learns a direct mapping:
 
@@ -365,7 +367,7 @@ The agent mainly learns:
 
 > In this situation, which action works?
 
-### Model-Based RL
+## Model-Based RL
 
 The agent also learns a model of the environment:
 
@@ -385,7 +387,7 @@ The agent can therefore evaluate actions using predicted outcomes.
 
 ------------------------------------------------------------------------
 
-## 7. World Models and Simulation
+# 7. World Models and Simulation
 
 The main advantage of a learned world model is the possibility of
 simulation.
@@ -424,7 +426,7 @@ Act
 
 ------------------------------------------------------------------------
 
-## 8. World Models + Planning
+# 8. World Models + Planning
 
 The World Model and the Planner have different roles.
 
@@ -454,7 +456,7 @@ The World Model and the Planner have different roles.
 
 ------------------------------------------------------------------------
 
-## 9. World Models + Reinforcement Learning
+# 9. World Models + Reinforcement Learning
 
 The complete loop becomes:
 
@@ -480,7 +482,7 @@ This is the basis of many **model-based RL** approaches.
 
 ------------------------------------------------------------------------
 
-## 10. World Models
+# 10. World Models
 
 One important early work is **World Models** by Ha and Schmidhuber
 (2018).
@@ -512,7 +514,7 @@ Reference:
 
 ------------------------------------------------------------------------
 
-## 11. Dreamer
+# 11. Dreamer
 
 Dreamer is another important family of model-based RL methods.
 
@@ -543,7 +545,7 @@ Reference:
 
 ------------------------------------------------------------------------
 
-## 12. MuZero
+# 12. MuZero
 
 MuZero is important because it does not need to reconstruct the complete
 environment.
@@ -575,7 +577,7 @@ Reference:
 
 ------------------------------------------------------------------------
 
-## 13. JEPA
+# 13. JEPA
 
 JEPA stands for:
 
@@ -609,11 +611,11 @@ target representation.
 
 This is different from pixel-level reconstruction.
 
-![Yann LeCun's shift in focus from LLMs toward JEPA and World Models]({{ '/assets/images/why_world_models_images/lecun_shift_llm_to_jepa.png' | relative_url }}){: .doc-diagram }
+![JEPA / World Model context](assets/jepa_world_models.jpg)
 
 ------------------------------------------------------------------------
 
-## 14. I-JEPA
+# 14. I-JEPA
 
 I-JEPA applies this principle to images.
 
@@ -645,7 +647,7 @@ Reference:
 
 ------------------------------------------------------------------------
 
-## 15. V-JEPA
+# 15. V-JEPA
 
 V-JEPA extends the JEPA idea to video.
 
@@ -681,7 +683,7 @@ How does it change?
 
 ------------------------------------------------------------------------
 
-## 16. V-JEPA 2
+# 16. V-JEPA 2
 
 V-JEPA 2 extends the predictive representation idea toward world
 modeling and physical reasoning.
@@ -733,7 +735,7 @@ Reference:
 
 ------------------------------------------------------------------------
 
-## 17. World Model vs LLM
+# 17. World Model vs LLM
 
 A simplified distinction:
 
@@ -779,7 +781,7 @@ It provides a model of an environment and its dynamics.
 
 ------------------------------------------------------------------------
 
-## 18. World Model vs RAG
+# 18. World Model vs RAG
 
 RAG and World Models solve different problems.
 
@@ -828,7 +830,7 @@ Tools     → Action
 
 ------------------------------------------------------------------------
 
-## 19. World Model + Agents
+# 19. World Model + Agents
 
 A simple agent loop is:
 
@@ -864,7 +866,7 @@ This is particularly relevant to agentic systems.
 
 ------------------------------------------------------------------------
 
-## 20. Connection with Context Engineering
+# 20. Connection with Context Engineering
 
 Context Engineering manages what the agent knows at a given moment:
 
@@ -906,7 +908,7 @@ World Model
 
 ------------------------------------------------------------------------
 
-## 21. Gymnasium
+# 21. Gymnasium
 
 To experiment with these ideas, **Gymnasium** is particularly useful.
 
@@ -953,7 +955,7 @@ Reference:
 
 ------------------------------------------------------------------------
 
-## 22. Why Gymnasium is useful for World Model projects
+# 22. Why Gymnasium is useful for World Model projects
 
 Gymnasium provides controlled environments where we can collect
 transitions:
@@ -986,9 +988,9 @@ This gives a measurable prediction error.
 
 ------------------------------------------------------------------------
 
-## 23. A Practical World Model Project Roadmap
+# 23. A Practical World Model Project Roadmap
 
-### Project 1 --- Model-Free RL
+## Project 1 --- Model-Free RL
 
 Start with:
 
@@ -1010,7 +1012,7 @@ Examples:
 
 ------------------------------------------------------------------------
 
-### Project 2 --- Learn Environment Dynamics
+## Project 2 --- Learn Environment Dynamics
 
 Collect:
 
@@ -1032,7 +1034,7 @@ Prediction Error
 
 ------------------------------------------------------------------------
 
-### Project 3 --- Model-Based RL
+## Project 3 --- Model-Based RL
 
 Use the learned model:
 
@@ -1050,7 +1052,7 @@ Choose action
 
 ------------------------------------------------------------------------
 
-### Project 4 --- Latent World Model
+## Project 4 --- Latent World Model
 
 Instead of predicting raw states:
 
@@ -1070,7 +1072,7 @@ This is closer to modern latent world model approaches.
 
 ------------------------------------------------------------------------
 
-### Project 5 --- Vision World Model
+## Project 5 --- Vision World Model
 
 Use visual observations:
 
@@ -1098,7 +1100,7 @@ JEPA-style encoder
 
 ------------------------------------------------------------------------
 
-### Project 6 --- Agent + World Model
+## Project 6 --- Agent + World Model
 
 Final architecture:
 
@@ -1124,7 +1126,7 @@ Environment
 
 ------------------------------------------------------------------------
 
-## 24. A Complete Architecture
+# 24. A Complete Architecture
 
 ``` text
                          ENVIRONMENT
@@ -1172,11 +1174,11 @@ Environment
 
 ------------------------------------------------------------------------
 
-## 25. Main Challenges
+# 25. Main Challenges
 
 World Models are not perfect.
 
-### Prediction Error
+## Prediction Error
 
 ``` text
 Predicted Future
@@ -1184,7 +1186,7 @@ Predicted Future
 Real Future
 ```
 
-### Error Accumulation
+## Error Accumulation
 
 ``` text
 Prediction t1
@@ -1196,22 +1198,22 @@ Prediction t3
 Increasing uncertainty
 ```
 
-### Distribution Shift
+## Distribution Shift
 
 A model trained in one environment may fail in another.
 
-### Representation
+## Representation
 
 The model must learn what information is actually useful for prediction
 and planning.
 
-### Computation
+## Computation
 
 Long-horizon simulation can be expensive.
 
 ------------------------------------------------------------------------
 
-## 26. The Core Idea
+# 26. The Core Idea
 
 The progression can be summarized as:
 
@@ -1271,7 +1273,7 @@ OBSERVE AGAIN
 
 ------------------------------------------------------------------------
 
-## 27. Final Takeaway
+# 27. Final Takeaway
 
 A World Model is not simply another neural network architecture.
 
