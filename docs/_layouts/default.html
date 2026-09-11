@@ -3,10 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="dark" />
-  <meta name="theme-color" content="#0b0b0d" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f7f7f8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)" />
   <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme-preference");
+        if (t === "light" || t === "dark") {
+          document.documentElement.setAttribute("data-theme", t);
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
@@ -28,6 +39,7 @@
       <a href="https://github.com/{{ site.author.github }}" target="_blank">GitHub</a>
       <a href="{{ site.author.linkedin }}" target="_blank">LinkedIn</a>
       <a href="{{ site.author.HuggingFace }}" target="_blank">Hugging Face</a>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Changer le thème"></button>
     </nav>
   </header>
 
@@ -64,6 +76,47 @@
 
   </div>
 
+  <script>
+    (function () {
+      var KEY = "theme-preference";
+      var root = document.documentElement;
+      var btn = document.getElementById("theme-toggle");
+
+      var icons = {
+        system: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>',
+        light: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>',
+        dark: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>'
+      };
+      var labels = { system: "Système", light: "Clair", dark: "Sombre" };
+
+      function getStored() {
+        try { return localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+      }
+
+      function apply(pref) {
+        if (pref === "light" || pref === "dark") {
+          root.setAttribute("data-theme", pref);
+        } else {
+          root.removeAttribute("data-theme");
+        }
+        if (btn) {
+          btn.innerHTML = icons[pref];
+          btn.title = "Thème : " + labels[pref] + " (cliquer pour changer)";
+        }
+      }
+
+      apply(getStored());
+
+      if (btn) {
+        btn.addEventListener("click", function () {
+          var order = ["system", "light", "dark"];
+          var next = order[(order.indexOf(getStored()) + 1) % order.length];
+          try { localStorage.setItem(KEY, next); } catch (e) {}
+          apply(next);
+        });
+      }
+    })();
+  </script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
   <script defer>

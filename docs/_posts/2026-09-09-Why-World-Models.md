@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Why world models?
-date: 2026-09-02
+date: 2026-09-09
 cover: /assets/images/covers/world-models.jpg
 categories:
   - AI Engineering
@@ -17,16 +17,16 @@ tags:
 
 Most AI models solve a specific problem:
 
-  Component                Main question
-  ------------------------ --------------------------------------------
-  Vision model             What do I see?
-  LLM                      What should I generate/reason about?
-  RAG                      What information can I retrieve?
-  Memory                   What happened before?
-  Tool                     What can I do?
-  Reinforcement Learning   Which behavior maximizes long-term reward?
-  World Model              What could happen next?
-  Planner                  Which action should I take?
+| Component | Main question |
+|---|---|
+| Vision model | What do I see? |
+| LLM | What should I generate/reason about? |
+| RAG | What information can I retrieve? |
+| Memory | What happened before? |
+| Tool | What can I do? |
+| Reinforcement Learning | Which behavior maximizes long-term reward? |
+| World Model | What could happen next? |
+| Planner | Which action should I take? |
 
 The key idea of a World Model is:
 
