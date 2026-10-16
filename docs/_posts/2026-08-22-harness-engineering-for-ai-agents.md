@@ -2,7 +2,7 @@
 layout: post
 title: Harness Engineering for AI Agents
 date: 2026-08-22
-cover: /assets/images/covers/harness-engineering.jpg
+cover: /assets/images/covers/harness-engineering.png
 categories:
   - AI Engineering
   - Agents

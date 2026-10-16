@@ -20,9 +20,9 @@ title: Home
 <img src="{{ '/assets/images/handson.jpg' | relative_url }}" alt="Hands-on AI" class="hero-image">
 
 <p>
-  Je suis étudiant en <strong>Génie informatique à ENSAO</strong>, passionné par
-  l'intelligence artificielle, les LLMs, et le Backend Engineering. Ce site est
-  l'endroit où je publie mes notes, articles, et projets.
+  Je suis étudiant en <strong>Génie informatique Option AI à ENSAO</strong>, passionné par
+  l'intelligence artificielle, les LLMs, et le Backend Engineering avec 1+ expérience. Ce site est
+  l'endroit où je publie mes notes, articles, et projets en Anglais.
 </p>
 
 <p>

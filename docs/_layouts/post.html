@@ -23,7 +23,7 @@ layout: default
 <div class="post-header-meta">
   <span class="post-date-sm">{{ page.date | date: "%d %B %Y" }}</span>
   <span class="post-date-sm">·</span>
-  <span class="post-date-sm">✍️ Rédigé par {{ site.author.name }}</span>
+  <span class="post-date-sm">Rédigé par {{ site.author.name }}</span>
   {% if page.tags %}
   <div class="post-header-tags">
     {% for tag in page.tags %}
@@ -41,16 +41,6 @@ layout: default
 </div>
 
 <div class="divider"></div>
-
-<!-- Feedback -->
-<div class="feedback">
-  <p>Cet article vous a été utile ?</p>
-  <div class="feedback-btns">
-    <button>😞</button>
-    <button>😐</button>
-    <button>😊</button>
-  </div>
-</div>
 
 <!-- Related posts -->
 {% assign related = site.posts | where_exp: "p", "p.url != page.url" | limit: 3 %}

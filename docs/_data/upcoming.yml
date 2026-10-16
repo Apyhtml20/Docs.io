@@ -1,3 +1,6 @@
 - title: "Why eXPLAINABLE AI (XAI) ?"
   category: "AI Engineering"
-  cover: /assets/images/covers/xai.jpg
+  cover: /assets/images/covers/xai.png
+- title: "From Transformers to DeepSeek"
+  category: "LLMs"
+  cover: /assets/images/covers/deepseek.png

@@ -2,7 +2,7 @@
 layout: post
 title: Why world models?
 date: 2026-09-09
-cover: /assets/images/covers/world-models.jpg
+cover: /assets/images/covers/world-models.png
 categories:
   - AI Engineering
 tags:
