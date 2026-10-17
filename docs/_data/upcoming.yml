@@ -4,3 +4,6 @@
 - title: "From Transformers to DeepSeek"
   category: "LLMs"
   cover: /assets/images/covers/deepseek.png
+- title: "What Is an Embedding Space, Really? Vectors & Dimensions"
+  category: "AI Engineering"
+  cover: /assets/images/covers/embedding-space.png
